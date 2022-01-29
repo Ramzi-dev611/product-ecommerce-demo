@@ -26,8 +26,10 @@ public class ProductService {
     public int update(String id, Product p){
         Product updated = this.repository.findById(id).get();
         if (updated != null){
-            updated.setName(p.getName().equals("") ? updated.getName() : p.getName());
-            updated.setDescription(p.getDescription().equals("") ? updated.getDescription() : p.getDescription());
+            if (p.getName() != null)
+                updated.setName(p.getName().equals("") ? updated.getName() : p.getName());
+            if (p.getDescription() != null)
+                updated.setDescription(p.getDescription().equals("") ? updated.getDescription() : p.getDescription());
             updated.setPrice(p.getPrice() == 0 ? updated.getPrice() : p.getPrice());
             updated.setStock_quantity(p.getStock_quantity() == 0 ? updated.getStock_quantity() : p.getStock_quantity());
             this.repository.save(updated);
